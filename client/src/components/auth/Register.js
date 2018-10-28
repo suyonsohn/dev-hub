@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 class Register extends Component {
     constructor() {
@@ -30,7 +31,9 @@ class Register extends Component {
             password2: this.state.password2
         }
 
-        console.log(newUser)
+        axios.post('/api/users/register', newUser)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err))
     }
 
     render() {
@@ -44,7 +47,7 @@ class Register extends Component {
                                 <p className="lead text-center">Create your Dev Hub account</p>
                                 <form onSubmit={this.onSubmit} >
                                     <div className="form-group">
-                                        <input type="text" className="form-control form-control-lg" placeholder="Name" name="name" value={this.state.name} onChange={this.onChange} required />
+                                        <input type="text" className="form-control form-control-lg" placeholder="Name" name="name" value={this.state.name} onChange={this.onChange} />
                                     </div>
                                     <div className="form-group">
                                         <input type="email" className="form-control form-control-lg" placeholder="Email Address" name="email" value={this.state.email} onChange={this.onChange} />
