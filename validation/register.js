@@ -20,30 +20,30 @@ module.exports = function validateRegisterInput(data) {
     }
 
     // Check email
-    if (Validator.isEmpty(data.email)) {
-        errors.email = 'Please enter your email.'
-    }
-
     if (!Validator.isEmail(data.email)) {
         errors.email = 'Please enter a valid email.'
     }
 
-    // Check password
-    if (Validator.isEmpty(data.password)) {
-        errors.password = 'Please enter your password.'
+    if (Validator.isEmpty(data.email)) {
+        errors.email = 'Please enter your email.'
     }
 
+    // Check password
     if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
         errors.password = 'Your password must be between 6 and 30 characters.'
     }
 
-    // Check password2
-    if (Validator.isEmpty(data.password2)) {
-        errors.password2 = 'Please confirm your password by entering it one more time.'
+    if (Validator.isEmpty(data.password)) {
+        errors.password = 'Please enter your password.'
     }
 
+    // Check password2
     if (!Validator.equals(data.password, data.password2)) {
         errors.password2 = 'Please confirm your password with the matching password.'
+    }
+
+    if (Validator.isEmpty(data.password2)) {
+        errors.password2 = 'Please confirm your password by entering it one more time.'
     }
 
     return {
