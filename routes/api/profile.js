@@ -146,4 +146,32 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         })
 })
 
+// @route   POST api/profile/experience
+// @desc    Add experience to profile
+// @access  Private
+router.post('/experience', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const errors = {}
+    Profile.findOne({ user: req.user.id })
+        .then(profile => {
+            if (!profile) {
+                errors.noProfile = 'No profile exists. You cannot add experience.'
+                res.status(404).json(errors)
+            }
+
+            const newExp = {
+                title: req.body.title,
+                company: req.body.company,
+                location: req.body.location,
+                from: req.body.from,
+                to: req.body.to,
+                current: req.body.current,
+                description: req.body.description
+            }
+
+            // Add experience array
+            profile.experience.unshift(newExp)
+            profile.save().then(profile => res.json(profile))
+        })
+})
+
 module.exports = router
