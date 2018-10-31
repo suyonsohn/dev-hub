@@ -68,7 +68,10 @@ router.get('/user/:user_id', (req, res) => {
 
             res.json(profile)
         })
-        .catch(err => { res.status(404).json(err) })
+        .catch(err => {
+            errors.noProfile = 'A valid user id is required to find this user.'
+            res.status(404).json(errors)
+        })
 })
 
 // @route   POST api/profile
