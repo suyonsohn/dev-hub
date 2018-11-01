@@ -1,7 +1,7 @@
 # dev-hub
 social network for developers
 
-# stack
+## stack
 - Node.js
 - React
 - Redux
